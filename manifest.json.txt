@@ -1,0 +1,9 @@
+{
+  "name": "MSSU NCR-CL Portal",
+  "short_name": "MSSU",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#004aad",
+  "theme_color": "#004aad",
+  "icons": []
+}
