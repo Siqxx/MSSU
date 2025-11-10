@@ -8,27 +8,28 @@
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<!-- SPLASH -->
+<!-- Splash Page -->
 <div id="splash" class="center">
   <div class="splash-card">
     <h1>MARITIME SAFETY SERVICES UNIT NCR-CL</h1>
     <p class="lead">Saving Lives</p>
-    <button id="enterBtn" class="btn primary">Enter</button>
+    <div class="splash-actions">
+      <button id="enterBtn" class="btn primary">Enter</button>
+    </div>
   </div>
 </div>
 
-<!-- APP -->
+<!-- Main App -->
 <div id="app" class="app" style="display:none;">
   <header class="app-header">
     <div>
-      <h2>MSSU NCR-CL Portal</h2>
-      <div class="muted">Admin • Logistics • Operation • Functional Branches • Others</div>
+      <h2>MSSU NCR-CL PORTAL</h2>
+      <div class="muted">Admin | Logistics | Operations | Functional Branches</div>
     </div>
     <div class="header-actions">
-      <div id="gsiButton"></div>
-      <button id="signoutBtn" class="btn small" style="display:none">Sign out</button>
-      <button id="printBtn" class="btn small">🖨 Print</button>
+      <button id="signinBtn" class="btn small">Sign in</button>
+      <button id="signoutBtn" class="btn small" style="display:none;">Sign out</button>
+      <button id="printBtn" class="btn small">🖨️ Print</button>
     </div>
   </header>
 
@@ -41,7 +42,7 @@
   </nav>
 
   <main id="sections">
-    <iframe id="pageFrame" src="admin.html" style="width:100%;height:calc(100vh - 220px);border:0"></iframe>
+    <iframe id="pageFrame" src="admin.html" style="width:100%;height:calc(100vh - 220px);border:0;"></iframe>
   </main>
 
   <footer class="app-footer">
@@ -49,39 +50,42 @@
   </footer>
 </div>
 
-<script src="script.js"></script>
-
-<!-- Google Identity Services -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-
+<!-- Script Connections -->
 <script>
-/* Splash enter */
+// Entry button
 document.getElementById('enterBtn').onclick = () => {
   document.getElementById('splash').style.display = 'none';
   document.getElementById('app').style.display = 'block';
 };
 
-/* Nav switching */
+// Navigation (iframe swap)
 document.querySelectorAll('.nav-btn').forEach(btn => {
   btn.onclick = () => {
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    const page = btn.dataset.page;
-    document.getElementById('pageFrame').src = page + '.html';
+    document.getElementById('pageFrame').src = btn.dataset.page + '.html';
   };
 });
 
-/* Print current iframe */
+// Print
 document.getElementById('printBtn').onclick = () => {
   const iframe = document.getElementById('pageFrame');
   iframe.contentWindow.focus();
   iframe.contentWindow.print();
 };
 
-/* Service worker registration (simple PWA offline) */
+// PWA support
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(console.error);
+  navigator.serviceWorker.register('/sw.js').catch(console.error);
 }
 </script>
+
+<!-- Linked Script -->
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz9FmJzjWDQb4Klu3ba5rke_3Icv0qqHdi81mBDeAxbYLeX46GFD_9JQkuPJnu4vHLlyQ/exec";
+const DRIVE_UPLOAD_URL = "https://script.google.com/macros/s/AKfycbx9efC0AU0DjFvHst8PPmRTffUVxc22UIMXbVVHMS2vS31KqnrUzIefasOijrARolxh4g/exec";
+const GOOGLE_CLIENT_ID = "507773507877-t1prpckunc9l2700dgfflhfk6jf2de5c.apps.googleusercontent.com";
+</script>
+<script src="script.js"></script>
 </body>
 </html>
